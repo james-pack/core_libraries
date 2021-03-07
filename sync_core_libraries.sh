@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Sync libraries from this repository to another. This script makes it easier to keep core external library versions and
+# configuration up-to-date. It contains a list of libraries whose contents are dictated by this repository. When run, it
+# removes the destination's version of these libraries and copies its own version to the destination. The WORKSPACE file
+# in the destination directory is not maintained via this script. To keep the WORKSPACE file in sync, load the
+# core_library_deps.bzl script as it is done in the WORKSPACE file in this repository.
 
 if [[ $# -eq 1 ]]
 then
@@ -11,13 +16,14 @@ then
     DEST_DIR="$2"
 else
     echo "Usage: $0 [source_directory] destination_directory"
+    echo "\tsource_directory defaults to the current directory"
     exit 1
 fi
 
 DEST_DIR="${DEST_DIR%/}"
 SRC_DIR="${SRC_DIR%/}"
 
-declare -a CORE_LIBRARIES=("third_party/gflags" "third_party/glog" "third_party/gtest" ".github")
+declare -a CORE_LIBRARIES=("third_party/gflags" "third_party/glog" "third_party/gtest" ".github/workflows")
 
 pushd "$SRC_DIR" > /dev/null
 for library in ${CORE_LIBRARIES[@]}
@@ -28,4 +34,3 @@ done
 
 echo "Synced."
 popd > /dev/null
-
