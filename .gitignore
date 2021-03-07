@@ -1,0 +1,9 @@
+bazel-core_libraries
+bazel-bin
+bazel-out
+bazel-testlogs
+
+.#BUILD.bazel
+.#WORKSPACE
+
+*~
