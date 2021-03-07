@@ -15,22 +15,24 @@ then
     SRC_DIR="$1"
     DEST_DIR="$2"
 else
-    echo "Usage: $0 [source_directory] destination_directory"
-    echo "\tsource_directory defaults to the current directory"
+    # Print usage.
+    echo -e "Usage: $0 [source_directory] destination_directory"
+    echo -e "\tsource_directory defaults to the current directory"
     exit 1
 fi
 
-DEST_DIR="${DEST_DIR%/}"
-SRC_DIR="${SRC_DIR%/}"
+# Normalize the directories to full paths. If this is omitted, DEST_DIR handling is inconsistent. Sometimes, it will
+# refer to a directory relative to the working directory of the script, and in other places, it will refer to a
+# directory relative to the SRC_DIR.
+SRC_DIR=$(cd "$SRC_DIR"; pwd)
+DEST_DIR=$(cd "$DEST_DIR"; pwd)
 
 declare -a CORE_LIBRARIES=("third_party/gflags" "third_party/glog" "third_party/gtest" ".github/workflows")
 
-pushd "$SRC_DIR" > /dev/null
 for library in ${CORE_LIBRARIES[@]}
 do
     rm -rf "${DEST_DIR}/${library}"
-    find "${library}" -type f | xargs tar cf - | (cd "$DEST_DIR"; tar xf -)
+    cd "$SRC_DIR"; find "$library" -type f | xargs tar cf - | (cd "$DEST_DIR"; tar xf -)
 done
 
-echo "Synced."
-popd > /dev/null
+echo -e "Synced."
