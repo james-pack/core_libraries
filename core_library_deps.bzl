@@ -28,3 +28,21 @@ def core_library_deps():
             strip_prefix = "glog-d516278b1cd33cd148e8989aec488b6049a4ca0b",
             urls = ["https://github.com/google/glog/archive/d516278b1cd33cd148e8989aec488b6049a4ca0b.zip"],
         )
+
+    if not native.existing_rule("rules_proto"):
+        http_archive(
+            name = "rules_proto",
+            sha256 = "602e7161d9195e50246177e7c55b2f39950a9cf7366f74ed5f22fd45750cd208",
+            strip_prefix = "rules_proto-97d8af4dc474595af3900dd85cb3a29ad28cc313",
+            urls = [
+                "https://mirror.bazel.build/github.com/bazelbuild/rules_proto/archive/97d8af4dc474595af3900dd85cb3a29ad28cc313.tar.gz",
+                "https://github.com/bazelbuild/rules_proto/archive/97d8af4dc474595af3900dd85cb3a29ad28cc313.tar.gz",
+            ],
+        )
+
+    if not native.existing_rule("com_google_absl"):
+        http_archive(
+            name = "com_google_absl",
+            strip_prefix = "abseil-cpp-98eb410c93ad059f9bba1bf43f5bb916fc92a5ea",
+            urls = ["https://github.com/abseil/abseil-cpp/archive/98eb410c93ad059f9bba1bf43f5bb916fc92a5ea.zip"],
+        )
