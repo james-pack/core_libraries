@@ -27,7 +27,7 @@ fi
 SRC_DIR=$(cd "$SRC_DIR"; pwd)
 DEST_DIR=$(cd "$DEST_DIR"; pwd)
 
-declare -a CORE_LIBRARIES=("third_party/gflags" "third_party/glog" "third_party/gtest" ".github/workflows")
+declare -a CORE_LIBRARIES=("third_party/absl" "third_party/gflags" "third_party/glog" "third_party/gtest" "third_party/protobuf" ".github/workflows")
 
 for library in ${CORE_LIBRARIES[@]}
 do
