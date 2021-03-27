@@ -18,7 +18,7 @@ jobs:
     strategy:
       matrix:
         cc: [clang-8, gcc-8, gcc-9]
-        cpp-dialect: [c++14, c++17, c++2a]
+        cpp-dialect: [c++14, c++17]
         os: [ubuntu-18.04, ubuntu-20.04]
       fail-fast: false
 
@@ -53,7 +53,7 @@ jobs:
 
     strategy:
       matrix:
-        cc: [clang-10, gcc-10]
+        cc: [clang-10, clang-11, gcc-10]
         cpp-dialect: [c++20]
         os: [ubuntu-20.04]
       fail-fast: false
